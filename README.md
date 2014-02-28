@@ -1,0 +1,40 @@
+PHP-functions
+=============
+
+Functions I needed that may be useful to others.
+
+'''
+<?php
+function format_big_numbers($number, $delimiter) {
+$len = strlen($number);
+if ($len > 3){
+    if ($len % 3 == 0) {
+        $split = str_split($number, 3);
+        $number_with_commas = implode("$delimiter", $split);
+        return $number_with_commas;
+    }
+    else if ($len % 3 == 1) {
+        $front = substr($number, 0, 1);
+        $split = substr($number, 1, $len - 1);
+        $split = str_split($split, 3);
+        $number_with_commas = implode("$delimiter", $split);
+        $number_with_commas = $front . "$delimiter" . $number_with_commas;
+        return $number_with_commas;
+    }
+    else {
+        $front = substr($number, 0, 2);
+        $split = substr($number, 2, $len - 2);
+        $split = str_split($split, 3);
+        $number_with_commas = implode("$delimiter", $split);
+        $number_with_commas = $front . "$delimiter" . $number_with_commas;
+        return $number_with_commas;
+    }
+}
+else {
+    return $number;
+}
+}
+$num = '1234567891234567891234567891234'; 
+echo format_big_numbers($num, ","); // output is 1,234,567,891,234,567,891,234,567,891,234
+?>
+'''
